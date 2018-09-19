@@ -1,0 +1,16 @@
+{
+  "extends": "eslint-config-es/2015/client",
+
+  "rules": {
+    "no-console": "off",
+    "no-debugger": "off",
+    "no-process-env": "off",
+    "object-curly-newline": "off",
+    "no-undef": ["error", { "typeof": true }]
+  },
+
+  "globals": {
+    "expect": true,
+    "jest": true
+  }
+}
