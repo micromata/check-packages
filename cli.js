@@ -62,16 +62,18 @@ if (!pathToWhitelistFile) {
   cli.showHelp();
 }
 
-const modes = [];
+const optionsForReadDeps = [];
 
 if (cli.flags.dev) {
-  modes.push('dev');
+  optionsForReadDeps.push('dev');
 }
 if (cli.flags.prod) {
-  modes.push('prod');
+  optionsForReadDeps.push('prod');
 }
 
-console.log('FLAGS', cli.flags);
+if (cli.flags.hasOwnProperty('depth')) {
+  optionsForReadDeps.push(`depth=${cli.flags.depth}`);
+}
 
 let installedPackages,
     whitelistedPackages;
@@ -84,7 +86,7 @@ try {
 }
 
 try {
-  const dependencies = readDependencies(modes, cli.depth);
+  const dependencies = readDependencies(optionsForReadDeps);
 
   if (dependencies.problems) {
     console.warn(chalk.black(chalk.bgYellow(dependencies.problems)));
