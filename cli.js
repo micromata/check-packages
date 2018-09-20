@@ -19,6 +19,7 @@ const cli = meow(`
     --depth               Max depth of the dependency tree analysis.
     --development  -dev   Analyze the dependency tree for packages in devDependencies.
     --production   -prod  Analyze the dependency tree for packages in dependencies.
+    --verbose              Lists dependency names that are not whitelisted.
     --version      -v     Displays the version number.
     --help         -h     Displays the help.
 
@@ -46,6 +47,9 @@ const cli = meow(`
     production: {
       type: 'boolean',
       alias: 'prod'
+    },
+    verbose: {
+      type: 'boolean'
     }
   }
 });
@@ -113,4 +117,11 @@ if (unallowedPackages.length === 0) {
 }
 
 console.log(chalk.red(`Number of unallowed dependencies: ${unallowedPackages.length}`));
+
+if (cli.flags.verbose) {
+  unallowedPackages.
+    sort().
+    forEach(pkgName => console.log(chalk.red(` - ${pkgName} [${installedPackages[pkgName].sort().join(', ')}]`)));
+}
+
 process.exit(1);
