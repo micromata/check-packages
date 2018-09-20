@@ -16,12 +16,12 @@ const cli = meow(`
 
   Options
     --blacklist    -black  Interpret list.json content as blacklisted dependency names.
-    --depth               Max depth of the dependency tree analysis.
-    --development  -dev   Analyze the dependency tree for packages in devDependencies.
-    --production   -prod  Analyze the dependency tree for packages in dependencies.
+    --depth                Max depth of the dependency tree analysis.
+    --development  -dev    Analyze the dependency tree for packages in devDependencies.
+    --production   -prod   Analyze the dependency tree for packages in dependencies.
     --verbose              Lists dependency names that are not whitelisted.
-    --version      -v     Displays the version number.
-    --help         -h     Displays the help.
+    --version      -v      Displays the version number.
+    --help         -h      Displays the help.
 
   Examples
     $ package "check-pkg-whitelist whitelist.json --dev --depth=10"
@@ -68,6 +68,11 @@ const pathToWhitelistFile = cli.input[0];
 
 if (!pathToWhitelistFile) {
   console.log(chalk.red('Path to whitelist json file is required. Please check the help below:'));
+  cli.showHelp();
+}
+
+if (cli.flags.hasOwnProperty('depth') && typeof cli.flags.depth !== 'number') {
+  console.log(chalk.red('Invalid value for option "depth". Please check the help below:'));
   cli.showHelp();
 }
 
