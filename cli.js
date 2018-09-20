@@ -6,33 +6,41 @@ const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const chalk = require('chalk');
 
+const readWhitelistFile = require('./lib/read-whitelist-file');
+const readDependencies = require('./lib/read-dependencies');
+const flattenDependencyTree = require('./lib/flatten-dependency-tree');
+
 const cli = meow(`
-	Usage
-	  $ check-pkg-whitelist [options]
+  Usage
+    $ check-pkg-whitelist <path-to-whitelist-json> [options]
 
-	Options
-	  --whitelist -w  path to the whitelist file which contains
-	                  an array with allowed package names
-	  --mode      -m  prod(uction), dev(elopment).
-	                  Default: "all"
-	  --version   -v  Displays the version number.
-	  --help      -h  Displays the help.
+  Options
+    --depth               Max depth of the dependency tree analysis.
+    --development  -dev   Analyze the dependency tree for packages in devDependencies.
+    --production   -prod  Analyze the dependency tree for packages in dependencies.
+    --version      -v     Displays the version number.
+    --help         -h     Displays the help.
 
-	Examples
-	  $ package "check-pkg-whitelist -m 'prod' whitelist.json"
+  Examples
+    $ package "check-pkg-whitelist whitelist.json --dev --depth=10"
 `, {
   alias: {
+    dev: 'development',
+    prod: 'production',
     h: 'help',    // eslint-disable-line
     v: 'version'  // eslint-disable-line
   },
   flags: {
-    mode: {
-      type: 'string',
-      alias: 'm'
+    depth: {
+      type: 'number'
     },
-    whitelist: {
-      type: 'string',
-      alias: 'w'
+    development: {
+      type: 'boolean',
+      alias: 'dev'
+    },
+    production: {
+      type: 'boolean',
+      alias: 'prod'
     }
   }
 });
@@ -47,13 +55,48 @@ if (cli.input.length === 0 && cli.flags.h === true) {
   cli.showHelp(0);
 }
 
-if (!cli.flags.whitelist) {
-  console.log(chalk.red('Option "whitelist" is required. Please check the help below:'));
+const pathToWhitelistFile = cli.input[0];
+
+if (!pathToWhitelistFile) {
+  console.log(chalk.red('Path to whitelist json file is required. Please check the help below:'));
   cli.showHelp();
 }
 
-if (Object.keys(cli.flags).map(key => typeof cli.flags[key]).
-  some(type => type === 'boolean')) {
-  console.log(chalk.red('Wrong option(s) provided. Please check the help below:'));
-  cli.showHelp();
+const modes = [];
+
+if (cli.flags.dev) {
+  modes.push('dev');
 }
+if (cli.flags.prod) {
+  modes.push('prod');
+}
+
+console.log('FLAGS', cli.flags);
+
+let installedPackages,
+    whitelistedPackages;
+
+try {
+  whitelistedPackages = readWhitelistFile(pathToWhitelistFile);
+} catch (error) {
+  console.error(chalk.red('reading whitelist failed!', error));
+  process.exit(1);
+}
+
+try {
+  const dependencies = readDependencies(modes, cli.depth);
+
+  if (dependencies.problems) {
+    console.warn(chalk.black(chalk.bgYellow(dependencies.problems)));
+  }
+
+  installedPackages = flattenDependencyTree(dependencies.tree, 300);
+} catch (error) {
+  console.error(chalk.red('reading installed packages failed!', error));
+  process.exit(1);
+}
+
+console.log(chalk.green('ok, we are here with a lot of dependencies:', installedPackages.length));
+console.log('FLATTENED!!!!');
+
+// installedPackages.forEach(item => console.log(item));
