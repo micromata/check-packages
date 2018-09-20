@@ -76,10 +76,10 @@ if (cli.flags.hasOwnProperty('depth')) {
 }
 
 let installedPackages,
-    whitelistedPackages;
+    listedPackages;
 
 try {
-  whitelistedPackages = readWhitelistFile(pathToWhitelistFile);
+  listedPackages = readWhitelistFile(pathToWhitelistFile);
 } catch (error) {
   console.error(chalk.red('reading whitelist failed!', error));
   process.exit(1);
@@ -92,7 +92,7 @@ try {
     console.warn(chalk.black(chalk.bgYellow(dependencies.problems)));
   }
 
-  installedPackages = flattenDependencyTree(dependencies.tree, 300);
+  installedPackages = flattenDependencyTree(dependencies.tree);
 } catch (error) {
   console.error(chalk.red('reading installed packages failed!', error));
   process.exit(1);
