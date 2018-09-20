@@ -98,7 +98,13 @@ try {
   process.exit(1);
 }
 
-console.log(chalk.green('ok, we are here with a lot of dependencies:', installedPackages.length));
-console.log('FLATTENED!!!!');
+const whitelistCheck = pkgName => listedPackages.includes(pkgName) === false;
+const unallowedPackages = Object.keys(installedPackages).filter(whitelistCheck);
 
-// installedPackages.forEach(item => console.log(item));
+if (unallowedPackages.length === 0) {
+  console.log(chalk.green('Congratulations, all dependencies are allowed!'));
+  process.exit(0);
+}
+
+console.log(chalk.red(`Number of unallowed dependencies: ${unallowedPackages.length}`));
+process.exit(1);
