@@ -12,9 +12,10 @@ const flattenDependencyTree = require('./lib/flatten-dependency-tree');
 
 const cli = meow(`
   Usage
-    $ check-pkg-whitelist <path-to-whitelist-json> [options]
+    $ check-pkg-whitelist <list.json> [options]
 
   Options
+    --blacklist    -black  Interpret list.json content as blacklisted dependency names.
     --depth               Max depth of the dependency tree analysis.
     --development  -dev   Analyze the dependency tree for packages in devDependencies.
     --production   -prod  Analyze the dependency tree for packages in dependencies.
@@ -31,6 +32,10 @@ const cli = meow(`
     v: 'version'  // eslint-disable-line
   },
   flags: {
+    blacklist: {
+      type: 'boolean',
+      alias: 'black'
+    },
     depth: {
       type: 'number'
     },
@@ -99,7 +104,8 @@ try {
 }
 
 const whitelistCheck = pkgName => listedPackages.includes(pkgName) === false;
-const unallowedPackages = Object.keys(installedPackages).filter(whitelistCheck);
+const blacklistCheck = pkgName => listedPackages.includes(pkgName) === true;
+const unallowedPackages = Object.keys(installedPackages).filter(cli.flags.blacklist ? blacklistCheck : whitelistCheck);
 
 if (unallowedPackages.length === 0) {
   console.log(chalk.green('Congratulations, all dependencies are allowed!'));
