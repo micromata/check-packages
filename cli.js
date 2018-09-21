@@ -6,9 +6,8 @@ const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const chalk = require('chalk');
 
-const readWhitelistFile = require('./lib/read-whitelist-file');
-const readDependencies = require('./lib/read-dependencies');
-const flattenDependencyTree = require('./lib/flatten-dependency-tree');
+const readCliOptions = require('./lib/read-cli-options');
+const analyzeDependencies = require('./lib/analyze-dependencies');
 
 const cli = meow(`
   Usage
@@ -56,77 +55,38 @@ const cli = meow(`
 
 updateNotifier({ pkg }).notify();
 
-if (cli.input.length === 0 && cli.flags.v === true) {
-  cli.showVersion();
+const options = readCliOptions(cli.input, cli.flags);
+
+if (options.valid && options.nextCliAction) {
+  cli[options.nextCliAction]();
 }
 
-if (cli.input.length === 0 && cli.flags.h === true) {
-  cli.showHelp(0);
-}
-
-const pathToWhitelistFile = cli.input[0];
-
-if (!pathToWhitelistFile) {
-  console.log(chalk.red('Path to whitelist json file is required. Please check the help below:'));
+if (!options.valid) {
+  console.log(chalk.red(`${options.error} Please check the help below:`));
   cli.showHelp();
 }
 
-if (cli.flags.hasOwnProperty('depth') && typeof cli.flags.depth !== 'number') {
-  console.log(chalk.red('Invalid value for option "depth". Please check the help below:'));
-  cli.showHelp();
+const result = analyzeDependencies(options);
+
+if (result.warning) {
+  console.log(chalk.black(chalk.bgYellow(result.warning)));
 }
 
-const optionsForReadDeps = [];
-
-if (cli.flags.dev) {
-  optionsForReadDeps.push('dev');
-}
-if (cli.flags.prod) {
-  optionsForReadDeps.push('prod');
+if (result.error) {
+  console.log(chalk.red(chalk.bgBlack(result.error)));
 }
 
-if (cli.flags.hasOwnProperty('depth')) {
-  optionsForReadDeps.push(`depth=${cli.flags.depth}`);
-}
-
-let installedPackages,
-    listedPackages;
-
-try {
-  listedPackages = readWhitelistFile(pathToWhitelistFile);
-} catch (error) {
-  console.error(chalk.red('reading whitelist failed!', error));
-  process.exit(1);
-}
-
-try {
-  const dependencies = readDependencies(optionsForReadDeps);
-
-  if (dependencies.problems) {
-    console.warn(chalk.black(chalk.bgYellow(dependencies.problems)));
-  }
-
-  installedPackages = flattenDependencyTree(dependencies.tree);
-} catch (error) {
-  console.error(chalk.red('reading installed packages failed!', error));
-  process.exit(1);
-}
-
-const whitelistCheck = pkgName => listedPackages.includes(pkgName) === false;
-const blacklistCheck = pkgName => listedPackages.includes(pkgName) === true;
-const unallowedPackages = Object.keys(installedPackages).filter(cli.flags.blacklist ? blacklistCheck : whitelistCheck);
-
-if (unallowedPackages.length === 0) {
+if (!result.error && result.unallowedPackages.length === 0) {
   console.log(chalk.green('Congratulations, all dependencies are allowed!'));
   process.exit(0);
 }
 
-console.log(chalk.red(`Number of unallowed dependencies: ${unallowedPackages.length}`));
+if (result.unallowedPackages.length) {
+  console.log(chalk.red(`Number of unallowed dependencies: ${result.unallowedPackages.length}`));
 
-if (cli.flags.verbose) {
-  unallowedPackages.
-    sort().
-    forEach(pkgName => console.log(chalk.red(` - ${pkgName} [${installedPackages[pkgName].sort().join(', ')}]`)));
+  if (options.verbose) {
+    console.log(chalk.red(result.verboseOutput));
+  }
 }
 
 process.exit(1);
