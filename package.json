@@ -22,15 +22,18 @@
     "cli.js"
   ],
   "keywords": [
-    "cli-app",
     "cli",
+    "cli-app",
+    "dependency-tree",
     "dependency-checking",
-    "whitelist"
+    "whitelist",
+    "blacklist"
   ],
   "dependencies": {
     "chalk": "2.4.1",
     "load-json-file": "5.1.0",
     "meow": "5.0.0",
+    "ora": "3.0.0",
     "update-notifier": "2.5.0"
   },
   "devDependencies": {
