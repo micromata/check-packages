@@ -5,6 +5,7 @@ const meow = require('meow');
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const chalk = require('chalk');
+const ora = require('ora');
 
 const readCliOptions = require('./lib/read-cli-options');
 const analyzeDependencies = require('./lib/analyze-dependencies');
@@ -77,23 +78,26 @@ if (!options.valid) {
   cli.showHelp();
 }
 
+const spinner = ora('analysing dependencies...').start();
 const result = analyzeDependencies(options);
+
+if (result.error) {
+  spinner.fail(`Dependency analysis error: ${result.error}`);
+} else {
+  spinner.succeed('Dependencies analysed');
+}
 
 if (result.warning) {
   console.log(chalk.black(chalk.bgYellow(result.warning)));
 }
 
-if (result.error) {
-  console.log(chalk.red(chalk.bgBlack(result.error)));
-}
-
 if (!result.error && result.unallowedPackages.length === 0) {
-  console.log(chalk.green('Congratulations, all dependencies are allowed!'));
+  spinner.succeed('Congratulations, all dependencies are allowed!');
   process.exit(0);
 }
 
 if (result.unallowedPackages.length) {
-  console.log(chalk.red(`Number of unallowed dependencies: ${result.unallowedPackages.length}`));
+  spinner.fail(`Found ${result.unallowedPackages.length} unallowed dependencies!`);
 
   if (options.verbose) {
     console.log(chalk.red(result.verboseOutput));
