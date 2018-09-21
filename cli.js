@@ -14,16 +14,24 @@ const cli = meow(`
     $ check-pkg-whitelist <list.json> [options]
 
   Options
-    --blacklist    -black  Interpret list.json content as blacklisted dependency names.
+    --topLevelOnly         Checks only direct dependencies listed in the top level package.json.
+                           Is equivalent to depth=0.
+                           default: false
+                           Note: You cannot use "depth" together with topLevelOnly
     --depth                Max depth of the dependency tree analysis.
+                           default: Infinity
+                           Note: You cannot use "depth" together with topLevelOnly.
+    --blacklist    -black  Interpret list.json content as blacklisted dependency names.
     --development  -dev    Analyze the dependency tree for packages in devDependencies.
     --production   -prod   Analyze the dependency tree for packages in dependencies.
-    --verbose              Lists dependency names that are not whitelisted.
+    --verbose              Lists unallowed dependencies.
     --version      -v      Displays the version number.
     --help         -h      Displays the help.
 
   Examples
     $ package "check-pkg-whitelist whitelist.json --dev --depth=10"
+    $ package "check-pkg-whitelist whitelist.json --dev --topLevelOnly --verbose"
+    $ package "check-pkg-whitelist blacklist.json --prod --blacklist
 `, {
   alias: {
     dev: 'development',
@@ -35,6 +43,9 @@ const cli = meow(`
     blacklist: {
       type: 'boolean',
       alias: 'black'
+    },
+    topLevelOnly: {
+      type: 'boolean'
     },
     depth: {
       type: 'number'
