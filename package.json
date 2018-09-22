@@ -42,6 +42,7 @@
     "jest": "23.6.0"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup.js",
     "collectCoverageFrom": [
       "lib/**/*.js"
     ]
