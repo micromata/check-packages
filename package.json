@@ -26,6 +26,10 @@
   "keywords": [
     "cli",
     "cli-app",
+    "dependencies",
+    "check-packages",
+    "check",
+    "packages",
     "dependency-tree",
     "dependency-checking",
     "whitelist",
