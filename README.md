@@ -1,3 +1,9 @@
+[![npm version](https://img.shields.io/npm/v/check-packages.svg?style=flat)](https://www.npmjs.org/package/check-packages)
+[![Dependency Status](https://david-dm.org/micromata/check-packages.svg)](https://david-dm.org/micromata/check-packages)
+[![devDependency Status](https://david-dm.org/micromata/check-packages/dev-status.svg)](https://david-dm.org/micromata/check-packages#info=devDependencies)
+[![Build Status](https://travis-ci.org/micromata/check-packages.svg?branch=master)](https://travis-ci.org/micromata/check-packages)
+[![Coverage](https://coveralls.io/repos/github/micromata/check-packages/badge.svg?branch=master)](https://coveralls.io/github/micromata/check-packages?branch=master)
+
 # check-packages
 > Checks the dependencies inside package.json against a list
 > of allowed/forbidden packages.
