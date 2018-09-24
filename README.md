@@ -30,6 +30,8 @@ $ check-packages --help
   Usage
     $ check-packages <list.json> [options]
 
+  The content of the <list.json> file (or however you will name it) must be an array of package names (e.g. [ 'react', 'react-dom', 'redux', 'react-redux' ]).
+
   Options
     --topLevelOnly         Checks only direct dependencies listed in the top level package.json.
                            Is equivalent to depth=0.
