@@ -1,6 +1,6 @@
 {
   "name": "check-packages",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Checks the dependencies inside package.json against a list of allowed/forbidden packages.",
   "license": "MIT",
   "homepage": "https://github.com/micromata/check-packages",
