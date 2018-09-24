@@ -1,5 +1,5 @@
 {
-  "name": "check-pkg-whitelist",
+  "name": "check-packages",
   "version": "0.0.1",
   "description": "Checks the dependencies inside package.json against a list of allowed/forbidden packages.",
   "license": "MIT",

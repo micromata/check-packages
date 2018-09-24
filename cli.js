@@ -6,7 +6,7 @@ const run = require('./lib/run-cli');
 
 const cli = meow(`
   Usage
-    $ check-pkg-whitelist <list.json> [options]
+    $ check-packages <list.json> [options]
 
   Options
     --topLevelOnly         Checks only direct dependencies listed in the top level package.json.
@@ -24,9 +24,9 @@ const cli = meow(`
     --help         -h      Displays the help.
 
   Examples
-    $ package "check-pkg-whitelist whitelist.json --dev --depth=10"
-    $ package "check-pkg-whitelist whitelist.json --dev --topLevelOnly --verbose"
-    $ package "check-pkg-whitelist blacklist.json --prod --blacklist
+    $ package "check-packages whitelist.json --dev --depth=10"
+    $ package "check-packages whitelist.json --dev --topLevelOnly --verbose"
+    $ package "check-packages blacklist.json --prod --blacklist
 `, {
   alias: {
     dev: 'development',
