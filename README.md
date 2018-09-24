@@ -1,21 +1,22 @@
 # check-packages
-> Checks the dependencies inside package.json against a list of allowed/forbidden packages.
+> Checks the dependencies inside package.json against a list
+> of allowed/forbidden packages.
 
 ## Install
 
 To use it in your project:
-```
+```shell
 $ npm install --save-dev check-packages
 ```
 
 To use it globally:
-```
+```shell
 $ npm install --global check-packages
 ```
 
 ## General usage
 
-```
+```shell
 $ check-packages --help
 
   Checks the dependencies inside package.json against a list of allowed/forbidden packages.
