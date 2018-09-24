@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Checks the dependencies inside package.json against a list of allowed/forbidden packages.",
   "license": "MIT",
-  "repository": "",
+  "homepage": "https://github.com/micromata/check-packages",
+  "repository": "micromata/check-packages",
   "author": {
     "name": "Christian Kühl",
     "email": "c.kuehl@micromata.de",
@@ -30,6 +31,12 @@
     "whitelist",
     "blacklist"
   ],
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup.js",
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ]
+  },
   "dependencies": {
     "chalk": "2.4.1",
     "load-json-file": "5.1.0",
@@ -42,11 +49,5 @@
     "eslint": "5.6.0",
     "eslint-config-es": "0.9.1",
     "jest": "23.6.0"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup.js",
-    "collectCoverageFrom": [
-      "lib/**/*.js"
-    ]
   }
 }
