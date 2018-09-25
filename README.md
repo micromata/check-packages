@@ -45,8 +45,8 @@ $ check-packages "./config/whitelisted-dev-dependencies.json" --dev
 ### Options
 
 | Option | Alias | Description |
-|---|---|---|---|
-| --topLevelOnly || Checks only direct dependencies listed in the top level package.json (equivalent to --depth=0).<br />Note: You cannot use `--topLevelOnly` together with `--depth`. |
+|---|---|---|
+| --topLevelOnly || Checks only direct dependencies listed in the top level package.json (equivalent to `--depth=0`).<br />Note: You cannot use `--topLevelOnly` together with `--depth`. |
 | --depth || Max depth of the dependency tree analysis (default: inifity).<br />Note: You cannot use `--depth` together with `--topLevelOnly`. |
 | --blacklist | -black | Interpret content of checklist as blacklist. |
 | --development | -dev |    Analyze the dependency tree for devDependencies. |
