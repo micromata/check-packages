@@ -36,24 +36,26 @@ The content of the checklist file must be an array of package names, e.g.:
 [ "react", "react-dom", "redux", "react-redux" ]
 ```
 
-By default `check-packages` uses the checklist path `packages-whitelist.json` (respectively `packages-blacklist.json` when called with option `--blacklist`),
-but you can also call `check-packages` with a different checklist path as first argument, e.g.:
+By default `check-packages` uses the checklist path `packages-whitelist.json`
+(respectively `packages-blacklist.json` when called with option `--blacklist`),
+but you can also call `check-packages` with a different checklist path as
+first argument, e.g.:
 ```shell
 $ check-packages "./config/whitelisted-dev-dependencies.json" --dev
 ```
 
 ### Options
 
-| Option | Alias | Description |
-|---|---|---|
-| --topLevelOnly || Checks only direct dependencies listed in the top level package.json (equivalent to `--depth=0`).<br />Note: You cannot use `--topLevelOnly` together with `--depth`. |
-| --depth || Max depth of the dependency tree analysis (default: inifity).<br />Note: You cannot use `--depth` together with `--topLevelOnly`. |
-| --blacklist | -black | Interpret content of checklist as blacklist. |
-| --development | -dev |    Analyze the dependency tree for devDependencies. |
-| --production | -prod | Analyze the dependency tree for dependencies. |
-| --verbose || Lists unallowed dependencies. |
-| --version | -v | Displays the version number. |
-| --help | -h | Displays the help. |
+| Option         | Alias   | Description                                                                                                                                                     |
+|----------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `topLevelOnly` |         | Checks only direct dependencies listed in the top level package.json (equivalent to `depth=0`).<br />Note: You cannot use `topLevelOnly` together with `depth`. |
+| `depth`        |         | Max depth of the dependency tree analysis (default: inifity).<br />Note: You cannot use `depth` together with `topLevelOnly`.                                   |
+| `blacklist`    | `black` | Interpret content of checklist as blacklist.                                                                                                                    |
+| `development`  | `dev`   | Analyze the dependency tree for devDependencies.                                                                                                                |
+| `production`   | `prod`  | Analyze the dependency tree for dependencies.                                                                                                                   |
+| `verbose`      |         | Lists unallowed dependencies.                                                                                                                                   |
+| `version`      | `v`     | Displays the version number.                                                                                                                                    |
+| `help`         | `h`     | Displays the help.                                                                                                                                              |
 
 ### Examples
 
