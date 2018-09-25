@@ -43,6 +43,7 @@ $ check-packages "./config/whitelisted-dev-dependencies.json" --dev
 ```
 
 ### Options
+
 | Option | Alias | Description |
 |---|---|---|---|
 | --topLevelOnly || Checks only direct dependencies listed in the top level package.json (equivalent to --depth=0).<br />Note: You cannot use `--topLevelOnly` together with `--depth`. |
