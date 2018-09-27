@@ -6,8 +6,7 @@
 
 # check-packages
 
-> Checks the dependencies inside package.json against a list
-> of allowed/forbidden packages.
+> CLI tool to check your dependencies against a list of allowed/forbidden packages.
 
 ## Install
 
