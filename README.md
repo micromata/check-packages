@@ -6,7 +6,7 @@
 
 # check-packages
 
-> CLI tool to check your dependencies against a list of allowed/forbidden packages.
+> CLI tool to check your npm dependencies against a list of allowed/forbidden packages.
 
 ## Install
 
