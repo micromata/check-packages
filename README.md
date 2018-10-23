@@ -30,9 +30,14 @@ $ check-packages <checklist.json> [options]
 
 ### Checklist JSON File
 
-The content of the checklist file must be an array of package names, e.g.:
+The content of the checklist file must be an array of package names (with optional [semver ranges](https://semver.npmjs.com/)), e.g.:
 ```json
-[ "react", "react-dom", "redux", "react-redux" ]
+[
+  "react",
+  "react-dom",
+  "redux@>=1.0.0-rc.0 <1.0.1",
+  "react-redux@^2 <2.2 || > 2.3"
+]
 ```
 
 By default `check-packages` uses the checklist path `packages-whitelist.json`
