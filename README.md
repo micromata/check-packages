@@ -30,7 +30,7 @@ $ check-packages <checklist.json> [options]
 
 ### Checklist JSON File
 
-The content of the checklist file must be an array of package names (with optional [semver ranges](https://docs.npmjs.com/misc/semver#ranges)), e.g.:
+The content of the checklist file must be an array of package names (with optional [semver ranges](https://semver.npmjs.com/)), e.g.:
 ```json
 [
   "react",
