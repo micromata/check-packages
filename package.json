@@ -1,6 +1,6 @@
 {
   "name": "check-packages",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "CLI tool to check your npm dependencies against a list of allowed/forbidden packages.",
   "license": "MIT",
   "homepage": "https://github.com/micromata/check-packages",
