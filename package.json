@@ -36,7 +36,9 @@
     "blacklist"
   ],
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/jest-setup.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest-setup.js"
+    ],
     "collectCoverageFrom": [
       "lib/**/*.js"
     ]
