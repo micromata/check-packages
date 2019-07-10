@@ -58,6 +58,7 @@ $ check-packages "./config/whitelisted-dev-dependencies.json" --dev
 | `development`  | `dev`   | Analyze the dependency tree for devDependencies.                                                                                                                |
 | `production`   | `prod`  | Analyze the dependency tree for dependencies.                                                                                                                   |
 | `verbose`      |         | Lists unallowed dependencies.                                                                                                                                   |
+| `exitCode`     |         | Exit code in case of unallowed dependencies. Default: 1                                                                                                         |
 | `version`      | `v`     | Displays the version number.                                                                                                                                    |
 | `help`         | `h`     | Displays the help.                                                                                                                                              |
 
