@@ -45,16 +45,16 @@
   },
   "dependencies": {
     "chalk": "2.4.2",
-    "load-json-file": "6.1.0",
+    "load-json-file": "6.2.0",
     "meow": "5.0.0",
     "ora": "3.4.0",
-    "semver": "6.2.0",
+    "semver": "6.3.0",
     "update-notifier": "3.0.1"
   },
   "devDependencies": {
-    "coveralls": "3.0.4",
-    "eslint": "6.0.1",
-    "eslint-config-es": "3.0.0",
-    "jest": "24.8.0"
+    "coveralls": "3.0.6",
+    "eslint": "6.3.0",
+    "eslint-config-es": "3.8.0",
+    "jest": "24.9.0"
   }
 }
