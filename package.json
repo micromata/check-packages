@@ -46,7 +46,7 @@
   "dependencies": {
     "chalk": "2.4.2",
     "load-json-file": "6.2.0",
-    "meow": "5.0.0",
+    "meow": "^7.0.1",
     "ora": "3.4.0",
     "semver": "6.3.0",
     "update-notifier": "3.0.1"
@@ -55,6 +55,6 @@
     "coveralls": "3.0.6",
     "eslint": "6.3.0",
     "eslint-config-es": "3.8.0",
-    "jest": "24.9.0"
+    "jest": "^26.0.1"
   }
 }
