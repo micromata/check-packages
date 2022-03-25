@@ -47,14 +47,14 @@
     "chalk": "2.4.2",
     "load-json-file": "6.2.0",
     "meow": "^7.0.1",
-    "ora": "3.4.0",
+    "ora": "^5.4.1",
     "semver": "6.3.0",
-    "update-notifier": "3.0.1"
+    "update-notifier": "^5.1.0"
   },
   "devDependencies": {
     "coveralls": "3.0.6",
-    "eslint": "6.3.0",
-    "eslint-config-es": "3.8.0",
+    "eslint": "^8.11.0",
+    "eslint-config-es": "^3.31.0",
     "jest": "^26.0.1"
   }
 }
