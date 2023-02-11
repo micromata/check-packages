@@ -49,7 +49,7 @@
     "meow": "^7.0.1",
     "ora": "^5.4.1",
     "semver": "6.3.0",
-    "update-notifier": "^5.1.0"
+    "update-notifier": "^6.0.2"
   },
   "devDependencies": {
     "coveralls": "3.0.6",
