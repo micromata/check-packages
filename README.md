@@ -20,7 +20,7 @@ To use it globally:
 $ npm install --global check-packages
 ```
 
-*It requires Node.js (v14 or higher).*
+*It requires Node.js (v16 or higher).*
 
 ## Usage
 
