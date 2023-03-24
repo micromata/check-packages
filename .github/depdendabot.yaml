@@ -4,8 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    reviewers:
+      - chrkhl
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    reviewers:
+      - chrkhl
